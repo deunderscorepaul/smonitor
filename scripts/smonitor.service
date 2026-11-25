@@ -1,0 +1,35 @@
+[Unit]
+Description=Smonitor Network Ping & Traceroute Monitor
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=smonitor
+Group=smonitor
+ExecStart=/usr/local/bin/smonitor --daemon --ranges=/etc/smonitor/ranges.json --db=/var/lib/smonitor/smonitor.db --port=:8080 --interval=2m
+Restart=on-failure
+RestartSec=5s
+
+# Least Privilege: allow raw ICMP sockets (ping & traceroute) without root
+CapabilityBoundingSet=CAP_NET_RAW
+AmbientCapabilities=CAP_NET_RAW
+NoNewPrivileges=yes
+
+# Hardening
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/var/lib/smonitor
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+MemoryDenyWriteExecute=yes
+LockPersonality=yes
+PrivateTmp=yes
+
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,31 @@
+# Binaries and build artifacts
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# SQLite runtime databases
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+
+# Test artifacts and coverage
+*.out
+*.test
+profile.cov
+
+# Local runtime config (keep ranges.example.json tracked)
+ranges.json
+
+# IDE & OS files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
